@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Q16Handshakes {
+public class Q16 {
     public static void main(String[] args) {
         try(Scanner input = new Scanner(System.in)){
 

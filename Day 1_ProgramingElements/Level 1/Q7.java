@@ -1,4 +1,4 @@
-public class Q7EarthVolume {
+public class Q7 {
     public static void main(String[] args) {
         double radius = 6378; 
 

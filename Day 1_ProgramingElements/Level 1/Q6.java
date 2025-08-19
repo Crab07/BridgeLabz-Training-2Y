@@ -1,4 +1,4 @@
-public class Q6UniversityFeeDiscount {
+public class Q6 {
     public static void main(String[] args) {
         double fees = 125000;              
         double discount_per = 10;      

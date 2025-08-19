@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Q5TotalPrice {
+public class Q15 {
     public static void main(String[] args) {
         try(Scanner input = new Scanner(System.in)){
 

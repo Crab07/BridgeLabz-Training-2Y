@@ -1,4 +1,4 @@
-public class Q2SamAverageMarks {
+public class Q2 {
      public static void main(String[] args) {
         int Maths_Marks = 94;
         int Physics_Marks = 95;

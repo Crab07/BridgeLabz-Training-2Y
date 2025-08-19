@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Q10TriangleArea {
+public class Q10 (2) {
     public static void main(String[] args) {
         try(Scanner input = new Scanner(System.in)){
 

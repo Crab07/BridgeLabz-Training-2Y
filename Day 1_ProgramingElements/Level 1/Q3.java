@@ -1,4 +1,4 @@
-public class Q3KmtoMiles {
+public class Q3 {
      public static void main(String[] args) {
         double Km = 10.8;
 

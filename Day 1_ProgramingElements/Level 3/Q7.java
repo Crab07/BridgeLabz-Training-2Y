@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Q7IntOperation {
+public class Q7 {
     public static void main(String[] args) {
         try(Scanner input = new Scanner(System.in)){
 

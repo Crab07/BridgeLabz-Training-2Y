@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
-public class DoubleOpt {
+public class Q8
+ {
     public static void main(String[] args) {
         try(Scanner input = new Scanner(System.in)){
 

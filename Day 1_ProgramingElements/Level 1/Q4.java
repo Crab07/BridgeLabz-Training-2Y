@@ -1,4 +1,4 @@
-public class Q4Profit_ProfitPercentage {
+public class Q4 {
     public static void main(String[] args) {
         double CP = 129;
         double SP = 191;

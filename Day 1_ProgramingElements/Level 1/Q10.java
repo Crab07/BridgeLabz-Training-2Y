@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Q10CmFeetInch {
+public class Q10 {
     public static void main(String[] args) {
         try(Scanner input = new Scanner(System.in)){
 

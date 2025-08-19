@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Q8Km2Miles {
+public class Q8 {
     public static void main(String[] args) {
         double km;
 
