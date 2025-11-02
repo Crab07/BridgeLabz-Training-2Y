@@ -1,17 +1,19 @@
 import java.util.*;
 
-// Abstract class Product
+// -------------------- 1. Abstract Class Product --------------------
 abstract class Product {
     private int id;
     private String name;
     private double price;
 
+    // Constructor
     public Product(int id, String name, double price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
 
+    // Getters & Setters (Encapsulation)
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -21,143 +23,169 @@ abstract class Product {
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
 
+    // Abstract Method
     public abstract double getDiscountedPrice();
 
+    // Concrete Method
     public void displayProductInfo() {
-        System.out.println("PRODUCT ID: " + id);
-        System.out.println("PRODUCT NAME: " + name);
-        System.out.println("BASE PRICE: $" + price);
-        System.out.println("DISCOUNTED PRICE: $" + getDiscountedPrice());
+        System.out.println("Product ID: " + id);
+        System.out.println("Name: " + name);
+        System.out.println("Base Price: " + price);
+        System.out.println("Discounted Price: " + getDiscountedPrice());
     }
 
+    // equals() → same if IDs are equal
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Product)) return false;
-        Product p = (Product) obj;
-        return this.id == p.id;
+        Product other = (Product) obj;
+        return this.id == other.id;
     }
 }
 
-// OrganicProduct subclass
+// -------------------- 2. Subclasses --------------------
 class OrganicProduct extends Product {
     public OrganicProduct(int id, String name, double price) {
         super(id, name, price);
     }
+
     @Override
     public double getDiscountedPrice() {
-        return getPrice() * 0.90;
+        return getPrice() * 0.90; // 10% discount
     }
+
     @Override
     public String toString() {
-        return "PRODUCT ID: " + getId() +
-               ", NAME: " + getName() +
-               ", BASE PRICE: $" + getPrice() +
-               ", DISCOUNTED PRICE: $" + getDiscountedPrice();
+        return "Product ID: " + getId() + ", Name: " + getName() +
+                ", Base Price: " + getPrice() +
+                ", Discounted Price: " + getDiscountedPrice();
     }
 }
 
-// RecycledProduct subclass
 class RecycledProduct extends Product {
     public RecycledProduct(int id, String name, double price) {
         super(id, name, price);
     }
+
     @Override
     public double getDiscountedPrice() {
-        return getPrice() * 0.95;
+        return getPrice() * 0.95; // 5% discount
     }
+
     @Override
     public String toString() {
-        return "PRODUCT ID: " + getId() +
-               ", NAME: " + getName() +
-               ", BASE PRICE: $" + getPrice() +
-               ", DISCOUNTED PRICE: $" + getDiscountedPrice();
+        return "Product ID: " + getId() + ", Name: " + getName() +
+                ", Base Price: " + getPrice() +
+                ", Discounted Price: " + getDiscountedPrice();
     }
 }
 
-// Cart class
+// -------------------- 3, 5 & 6. Cart Class --------------------
 class Cart {
-    private List<Product> items = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
     private static int totalCartsCreated = 0;
     public static final double TAX_RATE = 0.05;
 
+    // Constructor
     public Cart() {
         totalCartsCreated++;
     }
 
+    // 3. Overloaded addItem()
     public void addItem(Product p) {
-        items.add(p);
+        products.add(p);
+        System.out.println("Added Product: " + p.getName());
     }
 
-    public void addItem(Product... products) {
-        items.addAll(Arrays.asList(products));
+    public void addItem(Product... items) {
+        for (Product p : items) {
+            products.add(p);
+            System.out.println("Added Product: " + p.getName());
+        }
     }
 
     public void addItem(int productId, int quantity) {
-        System.out.println("ADDED " + quantity + " UNITS OF PRODUCT ID " + productId);
+        System.out.println("Added " + quantity + " units of Product ID " + productId);
     }
 
+    // 5. Static + Non-Static Methods
     public static int getCartCount() {
         return totalCartsCreated;
     }
 
     public void printCartItems() {
-        if (items.isEmpty()) {
-            System.out.println("CART IS EMPTY.");
-        } else {
-            for (Product p : items) {
-                System.out.println(p);
-            }
+        System.out.println("Items in Cart:");
+        for (Product p : products) {
+            System.out.println(p.toString());
         }
     }
 
+    // 6. Final methods
     public final void printBillHeader() {
-        System.out.println("******* ECOCART BILL ********");
+        System.out.println("******* EcoCart Bill ********");
     }
 
-    public void generateBill() {
-        double subtotal = 0;
-        for (Product p : items) {
-            subtotal += p.getDiscountedPrice();
-        }
-        double tax = subtotal * TAX_RATE;
-        double total = subtotal + tax;
+    public void printBill() {
         printBillHeader();
-        System.out.println("SUBTOTAL: $" + subtotal);
-        System.out.println("TAX (5%): $" + tax);
-        System.out.println("TOTAL: $" + total);
+        double grandTotal = 0.0;
+        for (Product p : products) {
+            double price = p.getDiscountedPrice();
+            double tax = price * TAX_RATE;
+            double total = price + tax;
+            grandTotal += total;
+            System.out.println("Item: " + p.getName() +
+                    ", Price: " + price +
+                    ", Tax: " + tax +
+                    ", Total: " + total);
+        }
+        System.out.println("----------------------------");
+        System.out.println("Grand Total: " + grandTotal);
     }
 }
 
-// Final class EcoRules
+// -------------------- 6. Final EcoRules Class --------------------
 final class EcoRules {
-    public static void printRules() {
-        System.out.println("USE ECO FRIENDLY BAGS.");
-        System.out.println("RECYCLE WASTE RESPON.");
+    public static void showRules() {
+        System.out.println("Use eco-friendly bags.");
+        System.out.println("Recycle waste responsibly.");
     }
 }
 
-// Main class
+// -------------------- Main Class --------------------
 public class EcoCartSystem {
     public static void main(String[] args) {
-        Product p1 = new OrganicProduct(1, "ORGANIC APPLE", 100);
-        Product p2 = new RecycledProduct(2, "RECYCLED NOTEBOOKS", 200);
+
+        // Creating Products
+        Product p1 = new OrganicProduct(101, "Organic Apple", 100);
+        Product p2 = new RecycledProduct(201, "Recycled Notebook", 200);
+        Product p3 = new OrganicProduct(102, "Organic Banana", 50);
+
+        System.out.println("1. Displaying Product Info (Using displayProductInfo)");
+        p1.displayProductInfo();
+        p2.displayProductInfo();
+        p3.displayProductInfo();
+
+        System.out.println("\n2. Adding Products to Cart");
 
         Cart cart1 = new Cart();
-        cart1.addItem(p1);
-        cart1.addItem(p2);
-
         Cart cart2 = new Cart();
-        cart2.addItem(3, 5);
 
-        System.out.println("\n--- STATIC VS NON STATIC DEMO ---");
-        System.out.println("TOTAL CART CREATED: " + Cart.getCartCount());
+        cart1.addItem(p1);
+        cart1.addItem(p2, p3);
+        cart1.addItem(101, 3);
+
+        System.out.println("\n3. Printing Cart Items (printCartItems)");
         cart1.printCartItems();
 
-        System.out.println("\n--- BILL FOR CART 1 ---");
-        cart1.generateBill();
+        System.out.println("\n4. Using Static Method (Cart.getCartCount())");
+        System.out.println("Total carts created: " + Cart.getCartCount());
 
-        System.out.println("\n--- ECO RULES ---");
-        EcoRules.printRules();
+        System.out.println("\n5. Printing Bill (Using TAX_RATE)");
+        cart1.printBill();
+
+        System.out.println("\n6. Using EcoRules Class");
+        EcoRules.showRules();
     }
 }
+
