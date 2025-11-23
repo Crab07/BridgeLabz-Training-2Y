@@ -1,63 +1,59 @@
-class InvalidMarksException extends Exception {
-    public InvalidMarksException(String message) {
-        super(message);
-    }
-}
-
-class InvalidAgeException extends Exception {
-    public InvalidAgeException(String message) {
-        super(message);
-    }
-}
-
-public class StudentManagementsSystem {
-
-    public static void main(String[] args) {
-        String name = "Devansh";
-        int age = 19;           
-        int[] marks = {85, 90, 95}; 
-
-        try {
-            if (name == null) {
-                throw new NullPointerException("Name cannot be null!");
-            }
-
-            if (age < 18) {
-                throw new InvalidAgeException("Student must be 18 or older!");
-            }
-
-            for (int mark : marks) {
-                if (mark < 0 || mark > 100) {
-                    throw new InvalidMarksException("Marks should be between 0 and 100!");
-                }
-            }
-
-            double average = 0;
-            try {
-                average = (marks[0] + marks[1] + marks[2]) / 3.0;
-            } catch (ArithmeticException e) {
-                System.out.println("Error calculating average: " + e.getMessage());
-            }
-
-            System.out.println("Student Name: " + name);
-            System.out.println("Age: " + age);
-            System.out.println("Average Marks: " + average);
-            System.out.println("Accessing extra index: " + marks[3]);
-
-        } catch (NullPointerException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (InvalidMarksException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (InvalidAgeException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Error: Tried to access invalid array index!");
-
-        } finally {
-            System.out.println("Result processing completed.");
+public class StudentRegistrationSystem {
+    public static void displayStudents(String[] students) {
+        for (int i = 0; i < students.length; i++) {
+            System.out.println(students[i]);
         }
     }
+    public static void compareStrings(String str1, String str2) {
+        System.out.println("Using '==': " + (str1 == str2));
+        System.out.println("Using '.equals()': " + str1.equals(str2));
+    }
+    public static void searchStudent(String[] students, String name) {
+        boolean found = false;
+        for (int i = 0; i < students.length; i++) {
+            if (students[i].equals(name)) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            System.out.println("Student Registered");
+        } else {
+            System.out.println("Student Not Found");
+        }
+    }
+    public static void main(String[] args) {
+        String students[] = {"Anand", "prince", "Sumit", "Ravi", "Aman"};
+        displayStudents(students);
+        String s1 = "Anand";
+        String s2 = "Anand";
+        String s3 = new String("Anand");
+        System.out.println(s1 == s2); // true, same reference in SCP
+        System.out.println(s1 == s3); // false, different reference
+        System.out.println(s1.equals(s3)); // true, same content
+
+        
+        String originalName = "Anand";
+        String modifiedName = originalName.concat(" Rawat");
+        System.out.println("Original Name: " + originalName); // Anand
+        System.out.println("Modified Name: " + modifiedName); // Anand Rawat
+
+        compareStrings(s1, s3);
+        String searchName = "Ravi";
+        searchStudent(students, searchName);
+        searchName = "John";
+        searchStudent(students, searchName);
+        // StringBuffer demonstration
+        StringBuffer sb = new StringBuffer("Hello");
+        sb.append(" World");
+        System.out.println("StringBuffer after append: " + sb.toString());
+        sb.insert(5, ",");
+        System.out.println("StringBuffer after insert: " + sb.toString());
+        sb.delete(5, 6);
+        System.out.println("StringBuffer after delete: " + sb.toString());
+
+
+    }
+
+
 }
